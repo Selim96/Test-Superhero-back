@@ -11,6 +11,8 @@ router.get('/:superId', cntrl.getById);
 
 router.post('/', cntrl.create);
 
+router.patch('/:superId', cntrl.editImage);
 
+router.delete('/:superId', cntrl.deleteById);
 
 module.exports = router;
