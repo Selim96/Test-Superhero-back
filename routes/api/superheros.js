@@ -1,18 +1,20 @@
 const express = require("express");
-const { route } = require("../../app");
-const {supers : cntrl} = require('../../controllers')
+const { supers: cntrl } = require('../../controllers');
+const { ctrlWrapper } = require("../../helpers");
+const { validation } = require("../../middlewares");
+const { joiSchemas } = require("../../models");
 
 
 const router = express.Router();
 
-router.get('/', cntrl.getAll);
+router.get('/', ctrlWrapper(cntrl.getAll) );
 
-router.get('/:superId', cntrl.getById);
+router.get('/:superId', ctrlWrapper(cntrl.getById));
 
-router.post('/', cntrl.create);
+router.post('/', validation(joiSchemas.createHero), ctrlWrapper(cntrl.create));
 
-router.patch('/:superId', cntrl.editImage);
+router.patch('/:superId', validation(joiSchemas.editImage), ctrlWrapper(cntrl.editImage));
 
-router.delete('/:superId', cntrl.deleteById);
+router.delete('/:superId', ctrlWrapper(cntrl.deleteById));
 
 module.exports = router;

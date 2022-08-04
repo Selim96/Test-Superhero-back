@@ -4,7 +4,8 @@ const Joi = require("joi");
 const superSchema = Schema({
     nickname: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     real_name: {
         type: String,
@@ -28,8 +29,27 @@ const superSchema = Schema({
     }
 }, { versionKey: false, timestamps: true });
 
+const createHero = Joi.object({
+    nickname: Joi.string().required(),
+    real_name: Joi.string(),
+    origin_description: Joi.string(),
+    superpowers: Joi.string().required(),
+    catch_phrase: Joi.string(),
+
+});
+
+const editImage = Joi.object({
+    image: Joi.string().required()
+})
+
+const joiSchemas = {
+    createHero,
+    editImage
+}
+
 const Superhero = model("superhero", superSchema);
 
 module.exports = {
-    Superhero
+    Superhero,
+    joiSchemas
 }

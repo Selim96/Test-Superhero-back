@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use('/api/superheros', routers.supers);
+app.use('/superheros', routers.supers);
 
 app.use((req, res) => {
     res.status(404).json({ message: 'Not found' })

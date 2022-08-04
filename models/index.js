@@ -1,5 +1,6 @@
-const { Superhero } = require("./superhero");
+const { Superhero, joiSchemas } = require("./superhero");
 
 module.exports = {
-    Superhero
+    Superhero,
+    joiSchemas
 }
