@@ -23,9 +23,9 @@ const superSchema = Schema({
         type: String,
         default: ""
     },
-    image: {
-        type: String,
-        default: ""
+    images: {
+        type: Schema.Types.Array,
+        default: []
     }
 }, { versionKey: false, timestamps: true });
 
@@ -35,12 +35,11 @@ const createHero = Joi.object({
     origin_description: Joi.string(),
     superpowers: Joi.string().required(),
     catch_phrase: Joi.string(),
-
 });
 
 const editImage = Joi.object({
-    image: Joi.string().required()
-})
+    images: Joi.string().required()
+});
 
 const joiSchemas = {
     createHero,

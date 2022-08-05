@@ -1,7 +1,7 @@
 const express = require("express");
 const { supers: cntrl } = require('../../controllers');
 const { ctrlWrapper } = require("../../helpers");
-const { validation, isValidId } = require("../../middlewares");
+const { validation, isValidId, upload } = require("../../middlewares");
 const { joiSchemas } = require("../../models");
 
 
@@ -11,9 +11,9 @@ router.get('/', ctrlWrapper(cntrl.getAll) );
 
 router.get('/:superId', isValidId, ctrlWrapper(cntrl.getById));
 
-router.post('/', validation(joiSchemas.createHero), ctrlWrapper(cntrl.create));
+router.post('/',upload.array("images", 10), validation(joiSchemas.createHero), ctrlWrapper(cntrl.create));
 
-router.patch('/:superId', isValidId, validation(joiSchemas.editImage), ctrlWrapper(cntrl.editImage));
+router.patch('/:superId', isValidId, upload.array('images', 10), ctrlWrapper(cntrl.editImage));
 
 router.delete('/:superId', isValidId, ctrlWrapper(cntrl.deleteById));
 
