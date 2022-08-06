@@ -37,13 +37,8 @@ const createHero = Joi.object({
     catch_phrase: Joi.string(),
 });
 
-const editImage = Joi.object({
-    images: Joi.string().required()
-});
-
 const joiSchemas = {
-    createHero,
-    editImage
+    createHero
 }
 
 const Superhero = model("superhero", superSchema);
