@@ -6,15 +6,14 @@ const picDirection = path.join(__dirname, "../../", "public");
 
 const editImage = async (req, res) => {
     const { superId } = req.params;
-    const { imageToDelete } = req.body;
+    const { imageToDelete, cuurentImages } = req.body;
     const arrayImages = req.files;
     const arrayOfImagesUrl = [];
     let arrayToRecord = [];
-    
-    const {images: cuurentImages} = await Superhero.findById(superId);
 
     if (imageToDelete) {
         const indexToDel = cuurentImages.indexOf(imageToDelete);
+        
         cuurentImages.splice(indexToDel, 1);
         arrayToRecord = cuurentImages;
 
