@@ -32,7 +32,6 @@ const editImage = async (req, res) => {
         fs.rename(tempPath, newPath);
         const imageUrl = path.join("pictures", name);
         curentImages.push(imageUrl);
-        console.log("add image")
     });
     };
 
