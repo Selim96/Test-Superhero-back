@@ -6,16 +6,16 @@ const picDirection = path.join(__dirname, "../../", "public");
 
 const editImage = async (req, res) => {
     const { superId } = req.params;
-    const { imageToDelete, cuurentImages } = req.body;
+    const { imageToDelete } = req.body;
     const arrayImages = req.files;
-    const arrayOfImagesUrl = [];
     let arrayToRecord = [];
 
+    const {images: curentImages} = await Superhero.findById(superId);
+
     if (imageToDelete) {
-        const indexToDel = cuurentImages.indexOf(imageToDelete);
+        const indexToDel = curentImages.indexOf(imageToDelete);
         
-        cuurentImages.splice(indexToDel, 1);
-        arrayToRecord = cuurentImages;
+        curentImages.splice(indexToDel, 1);
 
         const pathToDelete = path.join(picDirection, imageToDelete);
         fs.unlink(pathToDelete);
@@ -31,12 +31,12 @@ const editImage = async (req, res) => {
         const newPath = path.join(picDirection, "pictures", name);
         fs.rename(tempPath, newPath);
         const imageUrl = path.join("pictures", name);
-        arrayOfImagesUrl.push(imageUrl);
+        curentImages.push(imageUrl);
         console.log("add image")
     });
     };
 
-    arrayToRecord = [...cuurentImages, ...arrayOfImagesUrl];
+    arrayToRecord = [...curentImages];
     
     const result = await Superhero.findByIdAndUpdate(superId, { images: arrayToRecord }, {new: true});
     res.json({images: result.images});
